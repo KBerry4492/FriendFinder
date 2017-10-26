@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
   user: 'root',
   password: 'root',
   database: 'friends_db',
-  port: 3000
+  port: 3306
 });
 
 // Initiate MySQL Connection.
@@ -49,18 +49,54 @@ module.exports = function(app) {
     console.log("---")
     console.log(res.body);
 
-    connection.query('SELECT name, scores FROM datalist', function(err, res) {
+    connection.query('SELECT * FROM datalist', function(err, res) {
       if (err) throw err;
       
       console.log("r2");
-      console.log(res.body);
+      console.log(res);
 
-        connection.query("INSERT INTO datalist SET ?", friendData, function(error) {
-          if (error) throw error;
-          console.log("Friend added!");
+      var newScores = friendData.scores.split(",");
+      console.log("newScores: "+newScores);
 
-          res.json(true);
-        });
+      var mScoDiff = 50;
+      var scoId = 0;
+      var mId = 0;
+
+      for (var i = 0; i < res.length; i++) {
+
+        var currScore = res[i].scores;
+        var csArr = currScore.split("");
+        console.log("CSR "+i+": "+csArr);
+
+        var curScoDiff = 0;
+
+        for (var j = 0; j < csArr.length; j++) {
+          var scoreDiff = Math.abs(parseInt(csArr[j]) - parseInt(newScores[j]));
+          curScoDiff += scoreDiff;
+           console.log("SC "+ j + ": "+ scoreDiff);
+        }
+        console.log(curScoDiff);
+
+        if (curScoDiff < mScoDiff) {
+          mScoDiff = curScoDiff;
+          mId = scoId;
+        }
+        console.log("ScoID: "+scoId);
+        console.log("mID: "+mId);
+        scoId ++;
+      }
+
+      console.log("BFF "+res[mId].name);
+
+    connection.end();
+
+
+        // connection.query("INSERT INTO datalist SET ?", friendData, function(error) {
+        //   if (error) throw error;
+        //   console.log("Friend added!");
+
+        //   res.json(true);
+        // });
     });
   });
 };

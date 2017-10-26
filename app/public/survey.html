@@ -196,7 +196,7 @@
       // Here we grab the form elements
 
       var scoresArray = [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val(), ];
-      var scoreString = scoresArray.join();
+      var scoreString = scoresArray.join("");
       console.log ("ScoreString: "+scoreString);
 
       var newFriend = {
@@ -204,7 +204,7 @@
         photo: $("#friend-photo").val().trim(),
         scores: scoreString
       };
-      
+
       console.log("newFriend: "+ JSON.stringify(newFriend, null, 2));
       
       $.post("/api/newfriend", newFriend,
