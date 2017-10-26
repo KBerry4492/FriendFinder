@@ -10,9 +10,9 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-require("./routing/apiRoutes")(app);
+require("./app/routing/apiRoutes")(app);
 
-require("./routing/htmlRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
 app.listen(port, function() {
   console.log("App listening on port: " + port);

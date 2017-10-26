@@ -1,0 +1,12 @@
+DROP DATABASE IF EXISTS friends_db;
+
+CREATE DATABASE friends_db;
+USE friends_db;
+
+CREATE TABLE datalist (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  photo VARCHAR(255) NOT NULL,
+  scores VARCHAR(15) NOT NULL,
+  PRIMARY KEY (id)
+);
