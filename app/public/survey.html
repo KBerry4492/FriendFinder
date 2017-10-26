@@ -53,7 +53,7 @@
               <div id=qDiv>
 
               	<h3>Question 1</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>You enjoy writing code</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q1">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -64,7 +64,7 @@
 		      	</select>
 
 		      	<h3>Question 2</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>You make friends easily.</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q2">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -75,7 +75,7 @@
 		      	</select>
 
 		      	<h3>Question 3</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>You believe in the importance of art.</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q3">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -86,7 +86,7 @@
 		      	</select>
 
 		      	<h3>Question 4</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>You love large parties.</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q4">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -97,7 +97,7 @@
 		      	</select>
 
 		      	<h3>Question 5</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>you like to solve complex problems.</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q5">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -108,7 +108,7 @@
 		      	</select>
 
 		      	<h3>Question 6</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>You perfer variety to routine</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q6">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -119,7 +119,7 @@
 		      	</select>
 
 		      	<h3>Question 7</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>Your mind is always buzzing with ideas.</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q7">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -130,7 +130,7 @@
 		      	</select>
 
 		      	<h3>Question 8</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>You experience emotions intensely.</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q8">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -141,7 +141,7 @@
 		      	</select>
 
 		      	<h3>Question 9</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>You got straight for the goal.</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q9">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -152,7 +152,7 @@
 		      	</select>
 
 		      	<h3>Question 10</h3>
-				<h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
+				<h4>You try to make people feel welcome.</h4>
 			 	<select data-placeholder="" class="chosen-select" id="q10">
 			 		<option value=""></option>
 		            <option value="1">1 (Strongly Disagree)</option>
@@ -204,6 +204,7 @@
         photo: $("#friend-photo").val().trim(),
         scores: scoreString
       };
+      
       console.log("newFriend: "+ JSON.stringify(newFriend, null, 2));
       
       $.post("/api/newfriend", newFriend,

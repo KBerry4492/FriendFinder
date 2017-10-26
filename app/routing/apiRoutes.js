@@ -1,6 +1,8 @@
 // Add in mysql info
-var mysql = require('mysql');
 var path = require("path");
+
+var mysql = require('mysql');
+
 
 // Create connection (CHANGE TO YOUR CREDENTIALS)
 var connection = mysql.createConnection({
@@ -29,7 +31,7 @@ module.exports = function(app) {
   app.get('/api/friends', function(req, res) {
     console.log("Ping");
 
-    connection.query('SELECT * FROM datalist', function(err, result) {
+    connection.query('SELECT * FROM datalist', function(err, res) {
       
       res.sendFile(path.join(__dirname, "../data/friends.js"));
       if (err) throw err;
@@ -43,18 +45,22 @@ module.exports = function(app) {
     
     var friendData = req.body;
 
-    console.log(friendData);
+    console.log("fD "+JSON.stringify(friendData));
+    console.log("---")
+    console.log(res.body);
 
-    // connection.query('SELECT * FROM datalist', function(err, reservation) {
-    //   if (err) throw err;
+    connection.query('SELECT name, scores FROM datalist', function(err, res) {
+      if (err) throw err;
       
+      console.log("r2");
+      console.log(res.body);
 
-    //     connection.query("INSERT INTO datalist SET ?", friendData, function(error) {
-    //       if (error) throw error;
-    //       console.log("Friend added!");
+        connection.query("INSERT INTO datalist SET ?", friendData, function(error) {
+          if (error) throw error;
+          console.log("Friend added!");
 
-    //       res.json(true);
-    //     });
-    // });
+          res.json(true);
+        });
+    });
   });
 };
