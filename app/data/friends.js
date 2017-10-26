@@ -1,4 +1,4 @@
-[
+var friendData = [
 	{
 	  "name":"Kevin",
 	  "photo":"https://images.moviepilot.com/image/upload/c_fill,h_470,q_auto:good,w_620/nkjdachvtkv8hcv5kz20.jpg",
@@ -30,7 +30,7 @@
 	      5
 	    ]
 	},{
-	  "name":"Ryan",
+	  "name":"Ditto",
 	  "photo":"https://cdn.bulbagarden.net/upload/thumb/4/4c/132Ditto_Ranger3.png/200px-132Ditto_Ranger3.png",
 	  "scores":[
 	      3,
@@ -78,3 +78,4 @@
 ]
 
 
+module.exports = friendData;
