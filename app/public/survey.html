@@ -177,39 +177,84 @@
 
 
 	<footer class="footer">
-	<a href="../data/friends" target="_blank">Friends list.</a>
+	<a href="/api/friends" target="_blank">Friends list.</a>
 	&nbsp
 	<a href="https://github.com/KBerry4492/FriendFinder" target="_blank">Github Page.</a>
 	</footer>
+
+	<!-- Modal -->
+	<div id="resultsModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h2 class="modal-title"><strong>Best Match</strong></h2>
+	      </div>
+	      <div class="modal-body">
+	        <h2 id="matchName"></h2>
+	        <img id="matchImg" style="width: 100%;" src="https://openclipart.org/download/240431/Man-Head-Silhouette.svg" alt="Null Face Error">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" id="modeOff" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
 </div>
 </body>
 </html>
 
 
 <script type="text/javascript">
-    // In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
-    // In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
-    // Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
-    // In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
-    $("#submit").on("click", function(event) {
-      event.preventDefault();
-      // Here we grab the form elements
 
+    $("#submit").on("click", function(event) {
+
+      event.preventDefault();
+
+      //Grab the form values
+
+      var friName = $("#friend-name").val().trim();
+      var friPhoto = $("#friend-photo").val().trim();
       var scoresArray = [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val(), ];
+
+      console.log("SA: "+scoresArray);
+
       var scoreString = scoresArray.join("");
+      //turn them into a string
       console.log ("ScoreString: "+scoreString);
 
-      var newFriend = {
-        name: $("#friend-name").val().trim(),
-        photo: $("#friend-photo").val().trim(),
-        scores: scoreString
-      };
+      //If any of the fields are empty, do not continue.
 
-      console.log("newFriend: "+ JSON.stringify(newFriend, null, 2));
+    	if (scoreString.length < 10 || friName === "" || friPhoto === "") {
+      		alert("Please fill out all fields!");
+    	}
+
+    	else{
+	      var newFriend = {
+	        name: friName,
+	        photo: friPhoto,
+	        scores: scoreString
+	      };
+
+	      console.log("newFriend: "+ JSON.stringify(newFriend, null, 2));
+
+	      var currentURL = window.location.origin;
+
+	      $.post(currentURL + "/api/newfriend", newFriend,
+	        function(data) {
+
+	        	console.log("Data Return: "+ data);
+
+	        	$("#matchName").text(data.name);
+	    		$('#matchImg').attr("src", data.photo);
+		    	$("#resultsModal").modal('toggle');
+	        });
+		}
       
-      $.post("/api/newfriend", newFriend,
-        function(data) {
-          window.location = "/survey"
-        });
     });
+
+    $(document).on("click", "#modeOff", function(event) {
+      	window.location = "/survey"
+      }
 </script>

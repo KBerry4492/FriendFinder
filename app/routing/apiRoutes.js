@@ -28,75 +28,59 @@ connection.connect(function(err) {
 
 module.exports = function(app) {
 
-  app.get('/api/friends', function(req, res) {
-    console.log("Ping");
+  app.get('/api/friends', function(req, result) {
 
     connection.query('SELECT * FROM datalist', function(err, res) {
-      
-      res.sendFile(path.join(__dirname, "../data/friends.js"));
       if (err) throw err;
-
-      console.log(result);
+      result.json(res);
     });
   });
-
 
   app.post('/api/newfriend', function(req, res) {
     
     var friendData = req.body;
 
-    console.log("fD "+JSON.stringify(friendData));
-    console.log("---")
-    console.log(res.body);
-
-    connection.query('SELECT * FROM datalist', function(err, res) {
+    connection.query('SELECT * FROM datalist', function(err, result) {
       if (err) throw err;
       
-      console.log("r2");
-      console.log(res);
-
-      var newScores = friendData.scores.split(",");
-      console.log("newScores: "+newScores);
+      var newScores = friendData.scores.split("");
 
       var mScoDiff = 50;
       var scoId = 0;
       var mId = 0;
 
-      for (var i = 0; i < res.length; i++) {
+      for (var i = 0; i < result.length; i++) {
 
-        var currScore = res[i].scores;
+        var currScore = result[i].scores;
         var csArr = currScore.split("");
-        console.log("CSR "+i+": "+csArr);
 
         var curScoDiff = 0;
 
         for (var j = 0; j < csArr.length; j++) {
           var scoreDiff = Math.abs(parseInt(csArr[j]) - parseInt(newScores[j]));
           curScoDiff += scoreDiff;
-           console.log("SC "+ j + ": "+ scoreDiff);
-        }
-        console.log(curScoDiff);
+        }//end for
 
         if (curScoDiff < mScoDiff) {
           mScoDiff = curScoDiff;
           mId = scoId;
-        }
-        console.log("ScoID: "+scoId);
-        console.log("mID: "+mId);
+        } // end if
+
         scoId ++;
-      }
+      }//end for loop
 
-      console.log("BFF "+res[mId].name);
+      console.log("BFF "+result[mId].name);
 
-    connection.end();
+      res.json(result[mId]);
+
+      connection.query("INSERT INTO datalist SET ?", friendData, function(error) {
+        if (error) throw error;
+
+        console.log("Friend added!");
+
+      });
 
 
-        // connection.query("INSERT INTO datalist SET ?", friendData, function(error) {
-        //   if (error) throw error;
-        //   console.log("Friend added!");
-
-        //   res.json(true);
-        // });
     });
   });
 };
